@@ -8,7 +8,7 @@
     ../modules/common.nix
     ../modules/i18n.nix
     ../modules/hyprland.nix
-    ../modules/waybar.nix
+    ../modules/fonts.nix
   ];
 
   home-manager.users.${identity.username} = { pkgs, ... }: {

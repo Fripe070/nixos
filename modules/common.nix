@@ -11,6 +11,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  security.polkit.enable = true;
+
   users.users.${identity.username} = {
     isNormalUser = true;
     description = identity.displayName;
