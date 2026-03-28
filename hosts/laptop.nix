@@ -7,16 +7,9 @@
     ../hardware-configuration.nix
     ../modules/common.nix
     ../modules/i18n.nix
-    ../modules/hyprland.nix
     ../modules/fonts.nix
+    ../modules/desktop.nix
+    ../modules/programs.nix
+    ../modules/shell.nix
   ];
-
-  home-manager.users.${identity.username} = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      git
-      vscode
-      kitty
-      firefox
-    ];
-  };
 }

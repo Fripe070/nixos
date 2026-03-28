@@ -1,5 +1,4 @@
 { pkgs, identity, inputs, ... }:
-
 {
   programs.hyprland = {
     enable = true;
@@ -8,15 +7,7 @@
   };
   programs.xwayland.enable = true;
 
-  # Login manager
-  services.displayManager.ly = {
-    enable = true;
-    settings = {
-      animation = "gameoflife";
-    };
-  };
-
-  home-manager.users.${identity.username} = { pkgs, ... }: {
+  home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     wayland.windowManager.hyprland = {
       enable = true;
       # set the Hyprland and XDPH packages to null to use the ones from the NixOS module
@@ -27,20 +18,37 @@
 
       settings = {
         "$mod" = "SUPER";
-        # TODO: Configure...
+        bind = [
+          # Close the current window
+          "$mod, Q, killactive,"
+          # Open the terminal
+          "$mod, T, exec, kitty"
+          # Open the launcher
+          "$mod, SPACE, exec, uwsm app -- vicinae toggle"
+          # Locks the screen
+          "$mod, L, exec, hyprlock --immediate"
+          # Stops the session
+          "$mod SHIFT, E, exec, uwsm stop"
+        ];
+
         general =  {
           resize_on_border = true;
-          gap_out = 5;
-          gap_in = 3;
+          gaps_out = 3;
+          gaps_in = 3;
         };
-        bind = [
-          "$mod, Q, killactive,"
-          "$mod, T, exec, kitty"
-          "$mod SHIFT, E, exec, uwsm stop"
-          "$mod, L, exec, hyprlock --immediate"
-        ];
+        misc = {
+          disable_hyprland_logo = true;
+          disable_splash_rendering = true;
+        };
+
         exec-once = [
+          "waybar"
         ];
+        
+        xwayland = {
+          # Solves some issues of applications being low reselution
+          force_zero_scaling = true;
+        };
       };
     };
     home.sessionVariables = {
@@ -84,6 +92,20 @@
           position = "0, 200";
           halign = "center";
           valign = "center";
+        };
+      };
+    };
+
+      imports = [
+        inputs.vicinae.homeManagerModules.default
+      ];
+      services.vicinae = {
+      enable = true;
+      systemd = {
+        enable = true;
+        autoStart = true;
+        environment = {
+          USE_LAYER_SHELL = 1;
         };
       };
     };
