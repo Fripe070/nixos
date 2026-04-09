@@ -5,6 +5,7 @@
     # Enable the Universal Wayland Session Manager
     withUWSM = true;
   };
+
   programs.xwayland.enable = true;
 
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
@@ -17,20 +18,6 @@
       systemd.enable = false;
 
       settings = {
-        "$mod" = "SUPER";
-        bind = [
-          # Close the current window
-          "$mod, Q, killactive,"
-          # Open the terminal
-          "$mod, T, exec, kitty"
-          # Open the launcher
-          "$mod, SPACE, exec, uwsm app -- vicinae toggle"
-          # Locks the screen
-          "$mod, L, exec, hyprlock --immediate"
-          # Stops the session
-          "$mod SHIFT, E, exec, uwsm stop"
-        ];
-
         general =  {
           resize_on_border = true;
           gaps_out = 3;
@@ -40,15 +27,17 @@
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
         };
-
-        exec-once = [
-          "waybar"
-        ];
+        # Scrolling for people who aren't freaks
+        input.touchpad.natural_scroll = true;
         
         xwayland = {
-          # Solves some issues of applications being low reselution
+          # Solves some issues of applications being low resolution
           force_zero_scaling = true;
         };
+  
+        exec-once = [
+          "uwsm app -- waybar"
+        ];
       };
     };
     home.sessionVariables = {
@@ -59,6 +48,9 @@
     services.mako = {
       enable = true;
     };
+    
+    # Enable the Hyprland Polkit Agent for handling authentication
+    services.hyprpolkitagent.enable = true;
     
     programs.waybar = {
       enable = true;
@@ -96,10 +88,10 @@
       };
     };
 
-      imports = [
-        inputs.vicinae.homeManagerModules.default
-      ];
-      services.vicinae = {
+    imports = [
+      inputs.vicinae.homeManagerModules.default
+    ];
+    services.vicinae = {
       enable = true;
       systemd = {
         enable = true;
