@@ -47,7 +47,7 @@
         animation = [
           "fade, 0"
           "windows, 1, 1, default, slide"
-          "workspaces, 1, 2, default, slide"
+          "workspaces, 1, 2, default, slidefade"
         ];
       };
     };

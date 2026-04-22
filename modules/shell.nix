@@ -45,13 +45,13 @@
 
       git = {
         enable = true;
-        #settings = {
-        #  user = {
-        #    email = identity.email;
-        #    name = identity.displayName;
-        #  };
-        #  init.defaultBranch = "main";
-        #};
+        settings = {
+          user = {
+            email = identity.email;
+            name = identity.displayName;
+          };
+          init.defaultBranch = "main";
+        };
       };
       gh = {
         enable = true;
