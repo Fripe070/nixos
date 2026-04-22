@@ -19,37 +19,42 @@
       u	(submap universal)  Will be active no matter the submap.
       k	(per-device)        Allow binds to be set per device.*/
     bindd = [
-      "SUPER SHIFT, E, Exit hyprland, exec, uwsm stop"
       "SUPER, W,       Close active window, killactive,"
       "SUPER SHIFT, W, Force kill active window, forcekillactive,"
-      "SUPER, L,       Lock the screen, exec, hyprlock --immediate"
+      "SUPER, L,       Lock the screen, exec, hyprlock"
       "SUPER, SPACE,   Application launcher, exec, uwsm app -- vicinae toggle"
-      "SUPER, T,       Terminal, exec, uwsm app -- kitty"
+      "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
       "SUPER SHIFT, B, Private browser, exec, uwsm app -- firefox --private-window"
 
       # Most of the below is copied from omarchy
+      
+      # Window management
       "SUPER, J, Toggle window split, layoutmsg, togglesplit"
       "SUPER, T, Toggle window floating/tiling, togglefloating,"
-      "SUPER, F, Full screen, fullscreen, 0"
-
-      # Window management
+      "SUPER, F, Maximize, fullscreen, 1"
+      "SUPER SHIFT, F, Full screen, fullscreen, 0"
       # Move focus with SUPER + arrow keys
       "SUPER, LEFT,   Move window focus left,  movefocus, l"
       "SUPER, RIGHT,  Move window focus right, movefocus, r"
       "SUPER, UP,     Move window focus up,    movefocus, u"
       "SUPER, DOWN,   Move window focus down,  movefocus, d"
       # Swap active window with the one next to it with SUPER + SHIFT + arrow keys
-      "SUPER SHIFT, LEFT,  Swap window to the left, swapwindow, l"
+      "SUPER SHIFT, LEFT,  Swap window to the left,  swapwindow, l"
       "SUPER SHIFT, RIGHT, Swap window to the right, swapwindow, r"
-      "SUPER SHIFT, UP,    Swap window up, swapwindow, u"
-      "SUPER SHIFT, DOWN,  Swap window down, swapwindow, d"
+      "SUPER SHIFT, UP,    Swap window up,           swapwindow, u"
+      "SUPER SHIFT, DOWN,  Swap window down,         swapwindow, d"
+
+      # Resize active window
+      "SUPER ALT, RIGHT, Increase window width,  resizeactive, 100 0"
+      "SUPER ALT, DOWN,  Increase window height, resizeactive, 0 100"
+      "SUPER ALT, LEFT,  Decrease window width,  resizeactive, -100 0"
+      "SUPER ALT, UP,    Decrease window height, resizeactive, 0 -100"
 
       # Workspaces
       # TAB between workspaces
-      "SUPER, TAB,       Next workspace, workspace, e+1"
+      "SUPER, TAB,       Next workspace,     workspace, e+1"
       "SUPER SHIFT, TAB, Previous workspace, workspace, e-1"
-      "SUPER CTRL, TAB,  Former workspace, workspace, previous"
       # Switch workspaces with SUPER + [1-9; 0]
       "SUPER, 1, Switch to workspace 1, workspace, 1"
       "SUPER, 2, Switch to workspace 2, workspace, 2"
@@ -72,6 +77,27 @@
       "SUPER SHIFT, 8, Move window to workspace 8, movetoworkspace, 8"
       "SUPER SHIFT, 9, Move window to workspace 9, movetoworkspace, 9"
       "SUPER SHIFT, 0, Move window to workspace 10, movetoworkspace, 10"
+      # Move window to a workspace without switching to it
+      "SUPER CTRL SHIFT, 1, Move window silently to workspace 1, movetoworkspacesilent, 1"
+      "SUPER CTRL SHIFT, 2, Move window silently to workspace 2, movetoworkspacesilent, 2"
+      "SUPER CTRL SHIFT, 3, Move window silently to workspace 3, movetoworkspacesilent, 3"
+      "SUPER CTRL SHIFT, 4, Move window silently to workspace 4, movetoworkspacesilent, 4"
+      "SUPER CTRL SHIFT, 5, Move window silently to workspace 5, movetoworkspacesilent, 5"
+      "SUPER CTRL SHIFT, 6, Move window silently to workspace 6, movetoworkspacesilent, 6"
+      "SUPER CTRL SHIFT, 7, Move window silently to workspace 7, movetoworkspacesilent, 7"
+      "SUPER CTRL SHIFT, 8, Move window silently to workspace 8, movetoworkspacesilent, 8"
+      "SUPER CTRL SHIFT, 9, Move window silently to workspace 9, movetoworkspacesilent, 9"
+      "SUPER CTRL SHIFT, 0, Move window silently to workspace 10, movetoworkspacesilent, 10"
+    ];
+
+    bindm = [
+      "SUPER, mouse:272, movewindow"   # Left mouse
+      "SUPER, mouse:273, resizewindow" # Right mouse
+    ];
+
+    # format: "fingers, direction, action, options"
+    gesture = [
+      "3, horizontal, workspace" # 3-finger swipe to switch workspace
     ];
   };
 }
