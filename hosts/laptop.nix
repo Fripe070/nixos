@@ -13,4 +13,10 @@
     ../modules/programs.nix
     ../modules/shell.nix
   ];
+  # Machine-specific configuration
+  home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
+    wayland.windowManager.hyprland.settings = {
+      monitor = ["eDP-1, 1920x1080@144, 0x0, 1.25"];
+    };
+  };
 }
