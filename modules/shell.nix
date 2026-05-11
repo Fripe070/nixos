@@ -1,10 +1,8 @@
 { pkgs, identity, ... }:
-#if uwsm check may-start; then
-#    exec uwsm start hyprland.desktop
-#fi
 {
   # Wiki says to enable it system-wide even if already enabled in  home-manager
   programs.fish.enable = true; 
+  # Bash remains our default shell for non-interactive use (so that scripts work as expected)
   programs.bash = {
     interactiveShellInit = ''
       if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
@@ -16,6 +14,8 @@
   };
 
   home-manager.users.${identity.username} = { pkgs, ... }: {
+    home.packages = with pkgs; [ grc ];
+
     programs = {
       # My shell of choice
       fish = {
@@ -23,7 +23,7 @@
         enable = true;
         plugins = [
           { name = "grc"; src = pkgs.fishPlugins.grc.src; }
-          # Manually packaging and enable a plugin
+          # Manually packaging and enable a plugin12
           #{
           #  name = "z";
           #  src = pkgs.fetchFromGitHub {
@@ -38,7 +38,6 @@
       # Nix helper
       nh = {
         enable = true;
-        flake = /home/${identity.username}/nixos;
       };
       # z command as an improved cd
       zoxide.enable = true;
