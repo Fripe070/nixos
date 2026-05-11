@@ -3,16 +3,16 @@
 {
   networking.hostName = "laptop";
 
-  imports = [
-    ../hardware-configuration.nix
-    ../modules/common.nix
-    ../modules/i18n.nix
-    ../modules/fonts.nix
-    ../modules/desktop.nix
-    ../modules/shortcuts.nix
-    ../modules/programs.nix
-    ../modules/shell.nix
-  ];
+  imports = [ ./hardware-configuration.nix ] ++ 
+    (map (module: ../../modules/${module}) [
+      "common.nix"
+      "i18n.nix"
+      "fonts.nix"
+      "desktop.nix"
+      "shortcuts.nix"
+      "programs.nix"
+      "shell.nix"
+    ]);
   # Machine-specific configuration
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     wayland.windowManager.hyprland.settings = {

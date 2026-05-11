@@ -18,7 +18,7 @@
   {
     nixosConfigurations = {
       laptop = inputs.nixpkgs.lib.nixosSystem {
-        modules = [ ./hosts/laptop.nix ];
+        modules = [ ./hosts/laptop ];
         specialArgs = { inherit inputs identity; };
       };
     };

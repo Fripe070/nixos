@@ -1,0 +1,7 @@
+# Fill this out with values that match your setup.
+{
+  username = "fripe";
+  displayName = "Fripe";
+  email = "fripe@example.com";
+  configPath = "/home/fripe/nixos";
+}
