@@ -65,6 +65,7 @@
     
     programs.waybar = {
       enable = true;
+      systemd.enable = true;
     };
 
     # hyprlock for screen locking (we need both this and ly because yes)

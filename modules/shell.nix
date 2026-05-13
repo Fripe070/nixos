@@ -38,6 +38,7 @@
       # Nix helper
       nh = {
         enable = true;
+        flake = identity.configPath;
       };
       # z command as an improved cd
       zoxide.enable = true;
