@@ -12,6 +12,7 @@
       "shortcuts.nix"
       "programs.nix"
       "shell.nix"
+      "login.nix"
     ]);
   # Machine-specific configuration
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
