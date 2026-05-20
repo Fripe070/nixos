@@ -38,11 +38,6 @@
           # Solves some issues of applications being low resolution
           force_zero_scaling = true;
         };
-  
-        exec-once = [
-          "uwsm app -- waybar"
-          "uwsm app -- vicinae server"
-        ];
 
         animation = [
           "fade, 0"
