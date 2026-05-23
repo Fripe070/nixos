@@ -9,7 +9,7 @@ in
   stylix = {
     enable = true;
     base16Scheme = theme;
-    wallpaper = inputImage;
+    image = inputImage;
   };
 
   home-manager.users.${identity.username} = { ... }: {
