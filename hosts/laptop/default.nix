@@ -13,6 +13,7 @@
       "programs.nix"
       "shell.nix"
       "login.nix"
+      "rice"
     ]);
   # Machine-specific configuration
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {

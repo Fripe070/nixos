@@ -96,25 +96,6 @@
         general = {
           hide_cursor = true;
         };
-
-        background = {
-          path = "screenshot";
-          blur_passes = 2;
-          blur_size = 5;
-        };
-
-        label = {
-          text = "cmd[update:1000] date +%-I:%M";
-          font_size = 100;
-          font_family = "JetBrains Mono Extrabold";
-          position = "0, 200";
-          halign = "center";
-          valign = "center";
-        };
-
-        env = {
-          
-        };
       };
     };
 
@@ -134,8 +115,6 @@
         pop_to_root_on_close = true;
         telemetry.system_info = false;
         launcher_window = {
-          opacity = 1;
-          blur.enabled = false;
           layer_shell = {
             enabled = true;
             keyboard_interactivity = "on_demand";
