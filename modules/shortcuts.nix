@@ -31,6 +31,7 @@
       
       # Window management
       "SUPER, J, Toggle window split, layoutmsg, togglesplit"
+      "SUPER, K, Swap window split, layoutmsg, swapsplit"
       "SUPER, T, Toggle window floating/tiling, togglefloating,"
       "SUPER, F, Maximize, fullscreen, 1"
       "SUPER SHIFT, F, Full screen, fullscreen, 0"
