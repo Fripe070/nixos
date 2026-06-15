@@ -1,6 +1,6 @@
 { pkgs, identity, inputs, lib, ... }:
 let
-  theme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+  theme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
   inputImage = ./wallpaper.jpg;
 in
 {
