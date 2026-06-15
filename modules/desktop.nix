@@ -85,33 +85,6 @@
       };
     };
 
-    home.pointerCursor = let 
-      customCursorPkg = pkgs.stdenvNoCC.mkDerivation rec {
-        pname = "hatsune-miku-cursors";
-        version = "1.2.6";
-        src = pkgs.fetchFromGitHub {
-          owner = "supermariofps";
-          repo = "hatsune-miku-windows-linux-cursors";
-          rev = version;
-          hash = "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=";
-        };
-        installPhase = ''
-          mkdir -p $out/share/icons/miku-cursor-linux
-          cp -R miku-cursor-linux/* $out/share/icons/miku-cursor-linux/
-        '';
-      };      
-    in {
-      enable = true;
-      package = customCursorPkg;
-      name = "miku-cursor-linux";
-      size = 24;
-
-      hyprcursor.enable = true; 
-      gtk.enable = true; 
-      x11.enable = true; 
-    };
-
-
     # hyprlock for screen locking (we need both this and ly because yes)
     programs.hyprlock = {
       enable = true;
