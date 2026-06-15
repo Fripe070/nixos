@@ -7,10 +7,10 @@
     LC_MEASUREMENT = "sv_SE.UTF-8";
     LC_MONETARY = "sv_SE.UTF-8";
     LC_NAME = "sv_SE.UTF-8";
-    LC_NUMERIC = "sv_SE.UTF-8";
+    #LC_NUMERIC = "sv_SE.UTF-8";
     LC_PAPER = "sv_SE.UTF-8";
     LC_TELEPHONE = "sv_SE.UTF-8";
-    LC_TIME = "sv_SE.UTF-8";
+    LC_TIME = "en_GB.UTF-8";
   };
   # Configure keymap in X11
   services.xserver.xkb = {

@@ -61,6 +61,28 @@
     programs.waybar = {
       enable = true;
       systemd.enable = true;
+      settings = {
+        mainBar = {
+          layer = "top";
+          position = "top";
+          height = 30;
+          modules-left = [ "hyprland/workspaces" "hyprland/submap" ];
+          modules-center = [ "hyprland/window" ];
+          modules-right = [ "cpu" "memory" "battery" "pulseaudio" "network" "tray" "clock" ];
+
+          "clock" = {
+            format = "{:%T}";
+            interval = 1;
+            "tooltip-format" = "<big>{:%a w%W %Y}</big>\n<tt>{calendar}</tt>";
+            calendar = {
+              format = {
+                today = "<b><u>{}</u></b>";
+                weekday = "<b>{}</b>";
+              };
+            };
+          };
+        };
+      };
     };
 
     home.pointerCursor = let 
@@ -88,6 +110,7 @@
       gtk.enable = true; 
       x11.enable = true; 
     };
+
 
     # hyprlock for screen locking (we need both this and ly because yes)
     programs.hyprlock = {
