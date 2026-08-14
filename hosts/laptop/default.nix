@@ -7,7 +7,6 @@
     (map (module: ../../modules/${module}) [
       "common.nix"
       "i18n.nix"
-      "fonts.nix"
       "desktop.nix"
       "shortcuts.nix"
       "programs.nix"

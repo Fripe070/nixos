@@ -8,17 +8,12 @@ in
 
   stylix = {
     enable = true;
+    autoEnable = true;
+
     base16Scheme = theme;
     image = inputImage;
-  };
 
-  home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
-    gtk = {
-      enable = true;
-      gtk4.theme = null; 
-    };
-
-    home.pointerCursor = let 
+    cursor = let 
       customCursorPkg = pkgs.stdenvNoCC.mkDerivation rec {
         pname = "hatsune-miku-cursors";
         version = "1.2.6";
@@ -29,19 +24,56 @@ in
           hash = "sha256-OQjjOc9VnxJ7tWNmpHIMzNWX6WsavAOkgPwK1XAMwtE=";
         };
         installPhase = ''
-          mkdir -p $out/share/icons/miku-cursor-linux
-          cp -R miku-cursor-linux/* $out/share/icons/miku-cursor-linux/
+          mkdir -p $out/share/icons/hatsune-miku-cursors
+          cp -R miku-cursor-linux/* $out/share/icons/hatsune-miku-cursors/
         '';
       };      
     in {
-      enable = true;
       package = customCursorPkg;
-      name = "miku-cursor-linux";
+      name = "hatsune-miku-cursors";
       size = 24;
+    }; 
 
-      hyprcursor.enable = true; 
-      gtk.enable = true; 
-      x11.enable = true; 
+    fonts = {
+      serif = {
+        package = pkgs.texlivePackages.playfair;
+        name = "Playfair Display";
+      };
+      sansSerif = {
+        package = pkgs.inter;
+        name = "Inter";
+      };
+      # => 󱄅
+      monospace = {
+        package = pkgs.nerd-fonts.jetbrains-mono;
+        name = "JetBrains Mono Nerd Font";
+      };
+      # 😀
+      emoji = {
+        package = pkgs.twemoji-color-font;
+        name = "Twitter Color Emoji";
+      };
+
+      sizes = {
+        terminal = 14;
+      };
+    };
+  };
+
+  home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
+    gtk = {
+      enable = true;
+      gtk4.theme = null; 
+    };
+    
+    # Fix dolphin
+    xdg.configFile."kdeglobals" = {
+      enable = true;
+      text =
+        ''
+          [UiSettings]
+          ColorScheme=*
+        '';
     };
   };
 }
