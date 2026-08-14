@@ -18,6 +18,7 @@
       p	(bypass)            Bypasses the app's requests to inhibit keybinds.
       u	(submap universal)  Will be active no matter the submap.
       k	(per-device)        Allow binds to be set per device.*/
+
     bindd = [
       "SUPER, W,       Close active window, killactive,"
       "SUPER SHIFT, W, Force kill active window, forcekillactive,"
@@ -26,6 +27,7 @@
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
       "SUPER SHIFT, B, Private browser, exec, uwsm app -- firefox --private-window"
+      "SUPER, N,       File manager, exec, uwsm app -- dolphin"
 
       # Most of the below is copied from omarchy
       

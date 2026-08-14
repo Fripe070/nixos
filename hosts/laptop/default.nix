@@ -12,6 +12,7 @@
       "programs.nix"
       "shell.nix"
       "login.nix"
+      "files.nix"
       "rice"
     ]);
   # Machine-specific configuration
