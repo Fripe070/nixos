@@ -20,20 +20,21 @@
       k	(per-device)        Allow binds to be set per device.*/
 
     bindd = [
-      "SUPER, W,       Close active window, killactive,"
-      "SUPER SHIFT, W, Force kill active window, forcekillactive,"
-      "SUPER, L,       Lock the screen, exec, hyprlock"
       "SUPER, SPACE,   Application launcher, exec, uwsm app -- vicinae toggle"
+      "SUPER, N,       Notification history, exec, swaync-client --toggle-panel"
+      "SUPER, L,       Lock the screen, exec, hyprlock"
+
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
       "SUPER SHIFT, B, Private browser, exec, uwsm app -- firefox --private-window"
-      "SUPER, N,       File manager, exec, uwsm app -- dolphin"
 
-      # Most of the below is copied from omarchy
+      # A lot of the below is copied from omarchy
       
-      # Window management
+      "SUPER, W,       Close active window,      killactive,"
+      "SUPER SHIFT, W, Force kill active window, forcekillactive,"
+      # Window Movement
       "SUPER, J, Toggle window split, layoutmsg, togglesplit"
-      "SUPER, K, Swap window split, layoutmsg, swapsplit"
+      "SUPER, K, Swap window split,   layoutmsg, swapsplit"
       "SUPER, T, Toggle window floating/tiling, togglefloating,"
       "SUPER, F, Maximize, fullscreen, 1"
       "SUPER SHIFT, F, Full screen, fullscreen, 0"
