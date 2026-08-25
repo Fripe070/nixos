@@ -22,7 +22,7 @@
     bindd = [
       "SUPER, SPACE,   Application launcher, exec, uwsm app -- vicinae toggle"
       "SUPER, N,       Notification history, exec, swaync-client --toggle-panel"
-      "SUPER, L,       Lock the screen, exec, hyprlock"
+      "SUPER, L,       Lock the screen, exec, loginctl lock-session"
 
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
