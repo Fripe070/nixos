@@ -21,10 +21,15 @@
   };
 
   boot.loader = {
-    systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
+    timeout = 5;
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 10;
+    };
   };
 
+  # Permission control, allowing applications to ask for higher permissions
   security.polkit.enable = true;
 
   users.users.${identity.username} = {
@@ -42,9 +47,6 @@
     };
     backupFileExtension = "hm-backup";
   };
-
-  # Enable networking
-  networking.networkmanager.enable = true;
 
   nixpkgs.config.allowUnfree = true;
 

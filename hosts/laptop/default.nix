@@ -7,13 +7,12 @@
     (map (module: ../../modules/${module}) [
       "common.nix"
       "i18n.nix"
-      "desktop.nix"
-      "shortcuts.nix"
+      "connectivity.nix"
+      "audio.nix"
+      "desktop"
       "programs.nix"
       "shell.nix"
-      "login.nix"
       "files.nix"
-      "rice"
     ]);
   # Machine-specific configuration
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {

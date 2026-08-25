@@ -3,11 +3,6 @@
   services.udisks2.enable = true;
 
   home-manager.users.${identity.username} = { pkgs, ... }: {
-    home.packages = with pkgs; [
-      # File manager
-      kdePackages.dolphin
-    ];
-
     services.udiskie = {
       enable = true;
       settings = {

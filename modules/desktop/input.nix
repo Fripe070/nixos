@@ -94,8 +94,23 @@
     ];
 
     bindm = [
+      # Window controls
       "SUPER, mouse:272, movewindow"   # Left mouse
       "SUPER, mouse:273, resizewindow" # Right mouse
+    ];
+
+    # Repeat while held + works while locked + description
+    bindeld = [
+      ", XF86AudioRaiseVolume, Increase volume, exec, swayosd-client --output-volume raise"
+      ", XF86AudioLowerVolume, Decrease volume, exec, swayosd-client --output-volume lower"
+
+      ", XF86MonBrightnessUp, Increase brightness, exec, swayosd-client --brightness raise"
+      ", XF86MonBrightnessDown, Decrease brightness, exec, swayosd-client --brightness lower"
+    ];
+    # Works while locked + description
+    bindld = [
+      ", XF86AudioMute, Toggle mute, exec, swayosd-client --output-volume mute-toggle"
+      ", XF86AudioMicMute, Toggle microphone mute, exec, swayosd-client --input-volume mute-toggle"
     ];
 
     # format: "fingers, direction, action, options"
