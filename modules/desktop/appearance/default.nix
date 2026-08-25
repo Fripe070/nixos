@@ -60,7 +60,7 @@ in
     };
   };
 
-  home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
+  home-manager.users.${identity.username} = { config, pkgs, inputs, ... }: {
     gtk = {
       enable = true;
       gtk4.theme = null; 
@@ -74,6 +74,43 @@ in
           [UiSettings]
           ColorScheme=*
         '';
+    };
+
+    programs.hyprlock.settings = with config.lib.stylix.colors; {
+      general = {
+        hide_cursor = true;
+        immediate_render = true;
+      };
+
+      label = [
+        {
+          text = "$TIME";
+          font_size = 96;
+          font_family = config.stylix.fonts.monospace.name;
+          position = "0, 80";
+        }
+        {
+          text = "cmd[update:1000] date '+%A · %d %B'";
+          font_family = config.stylix.fonts.monospace.name;
+          position = "0, 0";
+        }
+      ];
+
+      "input-field" = {
+        size = "350, 42";
+        position = "0, -50";
+        outline_thickness = 1;
+        dots_size = 0.4;
+        dots_text_format = "*";
+        font_family = config.stylix.fonts.monospace.name;
+        fade_on_empty = false;
+        rounding = 0;
+        check_text = "checking...";
+        fail_text = "$FAIL - try again";
+        capslock_color = "rgb(${base0A})";
+        numlock_color = "rgb(${base0B})";
+        bothlock_color = "rgb(${base0E})";
+      };
     };
 
     wayland.windowManager.hyprland.settings = {
