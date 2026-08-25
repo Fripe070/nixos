@@ -1,5 +1,4 @@
-{ pkgs, inputs, config, identity, ... }:
-
+{ lib, pkgs, inputs, config, identity, ... }:
 {
   networking.hostName = "laptop";
 
@@ -14,15 +13,30 @@
       "shell.nix"
       "files.nix"
     ]);
+
   # Machine-specific configuration
+
+  services.logind.settings.Login = {
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchExternalPower = "suspend";
+    HandleLidSwitchDocked = "ignore";
+  };
+  
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
+    # Full systemctl suspend on laptop specifically
+    services.hypridle.settings.listener = lib.mkAfter [{
+      timeout = 1800;
+      on-timeout = "systemctl suspend";
+    }];
+
     wayland.windowManager.hyprland.settings = {
       monitor = ["eDP-1, 1920x1080@144, 0x0, 1.25"];
     };
   };
   
   services = {
-    power-profiles-daemon.enable = true;
+    tlp.enable = true;
+    thermald.enable = true;
   };
 
   # Patch libfprint with support for the reader on my laptop
