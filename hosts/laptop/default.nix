@@ -40,7 +40,7 @@
   };
 
   # Patch libfprint with support for the reader on my laptop
-  nixpkgs.overlays = [
+  /*nixpkgs.overlays = [
     (final: prev: {
       libfprint = prev.libfprint.overrideAttrs (oldAttrs: {
         # Replace entirely with the PR branch
@@ -55,7 +55,7 @@
         doCheck = false;
       });
     })
-  ];
+  ];*/
   services.fprintd.enable = true;
   security.pam.services = {
     sudo.fprintAuth = true;

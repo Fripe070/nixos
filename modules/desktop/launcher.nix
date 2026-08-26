@@ -2,7 +2,7 @@
 {
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     imports =  [inputs.vicinae.homeManagerModules.default ];
-    services.vicinae = {
+    programs.vicinae = {
       enable = true;
       package = inputs.vicinae.packages.${pkgs.stdenv.hostPlatform.system}.default;
       systemd = {

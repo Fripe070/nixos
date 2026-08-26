@@ -17,6 +17,9 @@
       portalPackage = null;
       # Turn off the built-in systemd integration, since we rely on UWSM
       systemd.enable = false;
+      # Use new lua config instead of hyprlang
+      # configType = "lua";
+      configType = "hyprlang"; # nvm it just breaks in lua mode???
 
       settings = {
         general =  {

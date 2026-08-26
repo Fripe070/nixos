@@ -1,4 +1,4 @@
-{ identity, ... }:
+{ lib, identity, ... }:
 {
   # I use hyprland, and thus also 
   home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings = {
@@ -59,40 +59,21 @@
       # TAB between workspaces
       "SUPER, TAB,       Next workspace,     workspace, e+1"
       "SUPER SHIFT, TAB, Previous workspace, workspace, e-1"
-      # Switch workspaces with SUPER + [1-9; 0]
-      "SUPER, 1, Switch to workspace 1, workspace, 1"
-      "SUPER, 2, Switch to workspace 2, workspace, 2"
-      "SUPER, 3, Switch to workspace 3, workspace, 3"
-      "SUPER, 4, Switch to workspace 4, workspace, 4"
-      "SUPER, 5, Switch to workspace 5, workspace, 5"
-      "SUPER, 6, Switch to workspace 6, workspace, 6"
-      "SUPER, 7, Switch to workspace 7, workspace, 7"
-      "SUPER, 8, Switch to workspace 8, workspace, 8"
-      "SUPER, 9, Switch to workspace 9, workspace, 9"
-      "SUPER, 0, Switch to workspace 10, workspace, 10"
-      # Move window to a workspace with SUPER + SHIFT + [1-9; 0]
-      "SUPER SHIFT, 1, Move window to workspace 1, movetoworkspace, 1"
-      "SUPER SHIFT, 2, Move window to workspace 2, movetoworkspace, 2"
-      "SUPER SHIFT, 3, Move window to workspace 3, movetoworkspace, 3"
-      "SUPER SHIFT, 4, Move window to workspace 4, movetoworkspace, 4"
-      "SUPER SHIFT, 5, Move window to workspace 5, movetoworkspace, 5"
-      "SUPER SHIFT, 6, Move window to workspace 6, movetoworkspace, 6"
-      "SUPER SHIFT, 7, Move window to workspace 7, movetoworkspace, 7"
-      "SUPER SHIFT, 8, Move window to workspace 8, movetoworkspace, 8"
-      "SUPER SHIFT, 9, Move window to workspace 9, movetoworkspace, 9"
-      "SUPER SHIFT, 0, Move window to workspace 10, movetoworkspace, 10"
-      # Move window to a workspace without switching to it
-      "SUPER CTRL SHIFT, 1, Move window silently to workspace 1, movetoworkspacesilent, 1"
-      "SUPER CTRL SHIFT, 2, Move window silently to workspace 2, movetoworkspacesilent, 2"
-      "SUPER CTRL SHIFT, 3, Move window silently to workspace 3, movetoworkspacesilent, 3"
-      "SUPER CTRL SHIFT, 4, Move window silently to workspace 4, movetoworkspacesilent, 4"
-      "SUPER CTRL SHIFT, 5, Move window silently to workspace 5, movetoworkspacesilent, 5"
-      "SUPER CTRL SHIFT, 6, Move window silently to workspace 6, movetoworkspacesilent, 6"
-      "SUPER CTRL SHIFT, 7, Move window silently to workspace 7, movetoworkspacesilent, 7"
-      "SUPER CTRL SHIFT, 8, Move window silently to workspace 8, movetoworkspacesilent, 8"
-      "SUPER CTRL SHIFT, 9, Move window silently to workspace 9, movetoworkspacesilent, 9"
-      "SUPER CTRL SHIFT, 0, Move window silently to workspace 10, movetoworkspacesilent, 10"
-    ];
+    ] ++ lib.concatMap (
+      workspace:
+      let
+        nr = toString workspace;
+        key = if workspace == 10 then "0" else nr;
+      in
+      [
+        # Switch workspaces with SUPER + [1-9; 0]
+        "SUPER, ${key}, Switch to workspace ${nr}, workspace, ${nr}"
+        # Move window to a workspace with SUPER + SHIFT + [1-9; 0]
+        "SUPER SHIFT, ${key}, Move window to workspace ${nr}, movetoworkspace, ${nr}"
+        # Move window to a workspace without switching to it
+        "SUPER CTRL SHIFT, ${key}, Move window silently to workspace ${nr}, movetoworkspacesilent, ${nr}"
+      ]
+    ) (lib.range 1 10);
 
     bindm = [
       # Window controls

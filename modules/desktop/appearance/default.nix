@@ -61,10 +61,7 @@ in
   };
 
   home-manager.users.${identity.username} = { config, pkgs, inputs, ... }: {
-    gtk = {
-      enable = true;
-      gtk4.theme = null; 
-    };
+    gtk.enable = true;
     
     # Fix dolphin
     xdg.configFile."kdeglobals" = {
