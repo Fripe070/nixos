@@ -117,5 +117,10 @@ in
         "workspaces, 1, 2, default, slidefade"
       ];
     };
+
+    programs.kitty.settings = {
+      cursor_trail = 5;
+      cursor_trail_decay = "0.1 0.2";
+    };
   };
 }
