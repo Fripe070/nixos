@@ -116,11 +116,15 @@ in
         "windows, 1, 1, default, slide"
         "workspaces, 1, 2, default, slidefade"
       ];
+      decoration = {
+        active_opacity = 1.0;
+        inactive_opacity = 0.92;
+      };
     };
 
     programs.kitty.settings = {
       cursor_trail = 5;
-      cursor_trail_decay = "0.1 0.2";
+      cursor_trail_decay = "0.05 0.15";
     };
   };
 }
