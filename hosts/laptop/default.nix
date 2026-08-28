@@ -42,7 +42,7 @@
   services.fprintd.enable = true;
   security.pam.services = {
     sudo.fprintAuth = true;
-    ly.fprintAuth = false;
-    hyprlock.fprintAuth = false;
+    #ly.fprintAuth = false;
+    #hyprlock.fprintAuth = false;
   };
 }
