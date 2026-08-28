@@ -14,7 +14,16 @@
 
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     # Screen locking (this and my display manager can't be the same because... linux)
-    programs.hyprlock.enable = true;
+    programs.hyprlock = {
+      enable = true;
+      settings.auth = {
+        pam = {
+          enabled = true;
+          module = "hyprlock";
+        };
+        fingerprint.enabled = true;
+      };
+    };
 
     services.hypridle = {
       enable = true;
