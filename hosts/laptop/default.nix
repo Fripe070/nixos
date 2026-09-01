@@ -12,6 +12,7 @@
       "programs.nix"
       "shell.nix"
       "files.nix"
+      "develop.nix"
     ]);
 
   # Machine-specific configuration

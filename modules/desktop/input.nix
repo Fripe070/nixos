@@ -60,12 +60,10 @@
       "SUPER, TAB,       Next workspace,     workspace, e+1"
       "SUPER SHIFT, TAB, Previous workspace, workspace, e-1"
     ] ++ lib.concatMap (
-      workspace:
-      let
+      workspace: let
         nr = toString workspace;
         key = if workspace == 10 then "0" else nr;
-      in
-      [
+      in [
         # Switch workspaces with SUPER + [1-9; 0]
         "SUPER, ${key}, Switch to workspace ${nr}, workspace, ${nr}"
         # Move window to a workspace with SUPER + SHIFT + [1-9; 0]

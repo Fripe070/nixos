@@ -33,6 +33,7 @@
         '';
         shellAliases = {
           ls = "eza -h --icons=auto --group-directories-first";
+          ll = "eza -hal --icons=auto --group-directories-first";
           tree = "eza --tree --level 2 --icons=auto --group-directories-first";
         };
       };
