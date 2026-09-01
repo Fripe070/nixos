@@ -30,6 +30,7 @@
           { name = "z"; src = fishPlugins.z.src; }
         ];
         interactiveShellInit = ''
+          set fish_greeting
         '';
         shellAliases = {
           ls = "eza -h --icons=auto --group-directories-first";
@@ -49,7 +50,7 @@
         enableFishIntegration = true;
 
         settings = {
-          format = "$directory$git_branch$git_status$cmd_duration$status$character";
+          format = "$directory$git_branch$git_status$nix_shell$cmd_duration$status$character";
 
           directory = {
             truncation_length = 3;
@@ -65,6 +66,13 @@
             ahead = "↑$count";
             behind = "↓$count";
             diverged = "↑$ahead_count ↓$behind_count";
+          };
+          nix_shell = {
+            format = "[$state$symbol]($style)";
+            symbol = " ";
+            pure_msg = "!";
+            impure_msg = "*";
+            unknown_msg = "?";
           };
           cmd_duration = {
             min_time = 1000;
