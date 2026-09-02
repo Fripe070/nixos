@@ -13,6 +13,8 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixvim.url = "github:dc-tec/nixvim";
   };
 
   outputs = inputs: let
