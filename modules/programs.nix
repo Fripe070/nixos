@@ -7,6 +7,7 @@
       kdePackages.dolphin
 
       vscode
+      vim
       inputs.nixvim.packages.x86_64-linux.default
     ];
     
