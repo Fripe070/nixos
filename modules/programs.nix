@@ -8,7 +8,6 @@
 
       vscode
       vim
-      inputs.nixvim.packages.x86_64-linux.default
     ];
     
     home.sessionVariables = {
@@ -22,6 +21,13 @@
       settings = {
         confirm_os_window_close = 0;
       };
+    };
+
+    programs.nixvim = {
+      enable = true;
+
+      colorschemes.catppuccin.enable = true;
+      plugins.lualine.enable = true;
     };
   };
 }
