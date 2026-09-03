@@ -1,13 +1,14 @@
 { pkgs, identity, inputs, ... }:
 {
-  home-manager.users.${identity.username} = { pkgs, ... }: {
+  home-manager.users.${identity.username} = { config, pkgs, ... }: {
+    imports =  [ inputs.nixvim.homeModules.default ];
+
     home.packages = with pkgs; [
       firefox
       # File manager
       kdePackages.dolphin
 
       vscode
-      vim
     ];
     
     home.sessionVariables = {
@@ -26,8 +27,28 @@
     programs.nixvim = {
       enable = true;
 
-      colorschemes.catppuccin.enable = true;
-      plugins.lualine.enable = true;
+      opts = {
+        number = true;
+        relativenumber = true;
+      };
+
+      plugins = {
+        treesitter = {
+          enable = true;
+          grammarPackages = with config.programs.nixvim.plugins.treesitter.package.passthru.builtGrammars; [
+            nix
+            markdown
+            markdown_inline
+            json
+            regex
+            asm
+          ];
+          settings = {
+            highlight.enable = true;
+            indent.enable = true;
+          };
+        };
+      };
     };
   };
 }
