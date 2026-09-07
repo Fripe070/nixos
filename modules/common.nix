@@ -42,8 +42,11 @@
     useGlobalPkgs = true;
     useUserPackages = true;
     extraSpecialArgs = { inherit inputs identity; };
-    users.${identity.username} = {
-      home.stateVersion = "25.05";
+    users.${identity.username}.home = {
+      stateVersion = "25.05";
+      sessionVariables = {
+        NIXPKGS_ALLOW_UNFREE = "1";
+      };
     };
     backupFileExtension = "hm-backup";
   };
