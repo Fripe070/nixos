@@ -27,6 +27,8 @@
       TERMINAL = "kitty";
     };
 
+    programs.btop.enable = true;
+
     programs.kitty = {
       enable = true;
       settings = {
