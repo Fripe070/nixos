@@ -6,6 +6,7 @@
     ./lock.nix
     ./launcher.nix
     ./misc.nix
+    ./screenshot
     ./appearance
   ];
 }

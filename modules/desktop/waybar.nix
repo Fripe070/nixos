@@ -11,7 +11,15 @@
           height = 30;
           modules-left = [ "hyprland/workspaces" "hyprland/submap" ];
           modules-center = [ "hyprland/window" ];
-          modules-right = [ "cpu" "memory" "battery" "pulseaudio" "network" "tray" "clock" ];
+          modules-right = [ "custom/recorder" "cpu" "memory" "battery" "pulseaudio" "network" "tray" "clock" ];
+
+          "custom/recorder" = {
+            format = "🔴 REC";
+            interval = 1;
+            exec = "pgrep -x wl-screenrec >/dev/null && echo '{\"text\":\"🔴 REC\",\"tooltip\":\"Click to stop recording\",\"class\":\"recording\"}' || echo ''";
+            return-type = "json";
+            on-click = "snip stop";
+          };
 
           "clock" = {
             format = "{:%T}";

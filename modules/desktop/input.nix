@@ -1,6 +1,5 @@
 { lib, identity, ... }:
 {
-  # I use hyprland, and thus also 
   home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings = {
     # https://wiki.hypr.land/Configuring/Binds/
     /*l (locked)	          Will also work when an input inhibitor (e.g. a lockscreen) is active.
@@ -27,6 +26,11 @@
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
       "SUPER SHIFT, B, Private browser, exec, uwsm app -- firefox --private-window"
+
+      ", Print,        Screenshot,       exec, snip screenshot"
+      "SUPER SHIFT, S, Screenshot,       exec, snip screenshot"
+      "SUPER SHIFT, R, Record selection, exec, snip record"
+      "SUPER, Escape,  Stop recording,   exec, snip stop"
 
       # A lot of the below is copied from omarchy
       
