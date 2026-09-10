@@ -5,10 +5,20 @@
 
     home.packages = with pkgs; [
       firefox
-      # File manager
-      kdePackages.dolphin
-
       vscode
+      zed
+
+      kdePackages.dolphin # file manager
+      kdePackages.ark     # archive manager
+
+      loupe               # image viewer
+      vlc                 # video/media viewer
+
+      gimp                # image editor
+      krita               # other image editor
+      inkscape            # vector graphics
+
+      yt-dlp
     ];
     
     home.sessionVariables = {
