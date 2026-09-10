@@ -9,10 +9,19 @@ in
   stylix = {
     enable = true;
     autoEnable = true;
+    polarity = "dark";
+    targets.gtksourceview.enable = false; # Prevents full inkscape rebuild from source
 
     base16Scheme = theme;
     image = inputImage;
 
+    icons = {
+      enable = true;
+      package = pkgs.papirus-icon-theme;
+      dark = "Papirus-Dark";
+      light = "Papirus-Light";
+    };
+    
     cursor = let 
       customCursorPkg = pkgs.stdenvNoCC.mkDerivation rec {
         pname = "hatsune-miku-cursors";
@@ -61,7 +70,22 @@ in
   };
 
   home-manager.users.${identity.username} = { config, pkgs, inputs, ... }: {
-    gtk.enable = true;
+    gtk = {
+      enable = true;
+      gtk3.extraConfig.gtk-application-prefer-dark-theme = 1;
+      gtk4.extraConfig.gtk-application-prefer-dark-theme = 1;
+    };
+
+    home.packages = with pkgs; [
+      adwaita-icon-theme
+      kdePackages.qtstyleplugin-kvantum
+      kdePackages.qt6ct
+    ];
+
+    home.sessionVariables = {
+      # Ensure both Qt 5 and 6 find their theme engine
+      QT_QPA_PLATFORMTHEME = lib.mkForce "qt5ct;qt6ct";
+    };
     
     # Fix dolphin
     xdg.configFile."kdeglobals" = {

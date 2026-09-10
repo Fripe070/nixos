@@ -9,6 +9,12 @@
   # X compatibility
   programs.xwayland.enable = true;
 
+  programs.dconf.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     wayland.windowManager.hyprland = {
       enable = true;
