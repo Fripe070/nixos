@@ -1,21 +1,9 @@
 { pkgs, identity, ... }:
+
 let
-  snip = pkgs.writeShellApplication {
-    name = "snip";
-    runtimeInputs = with pkgs; [
-      procps
-      libnotify
-      slurp
-      wl-screenrec
-      grimblast
-      wl-clipboard
-      satty
-      jq
-      xdg-utils
-      coreutils
-    ];
-    text = builtins.readFile ./snip.sh;
-  };
+  snip = pkgs.writeShellScriptBin "snip" ''
+    exec ${pkgs.nushell}/bin/nu ${./snip.nu} "$@"
+  '';
 in
 {
   home-manager.users.${identity.username} = { pkgs, ... }: {
@@ -26,6 +14,9 @@ in
       wl-screenrec
       wl-clipboard
       libnotify
+      nushell
+      procps
+      xdg-utils
       snip
     ];
 
@@ -36,13 +27,11 @@ in
     xdg.configFile."satty/config.toml".text = ''
       [general]
       fullscreen = false
+      floating-hack = true
       early-exit = true
       initial-tool = "brush"
       copy-command = "wl-copy"
-      annotation-size-factor = 1.0
-      output-filename = "~/Pictures/Screenshots/screenshot-%Y%m%d-%H%M%S.png"
-      save-after-copy = false
-      default-hide-toolbars = false
+      save-after-copy = true
     '';
   };
 }
