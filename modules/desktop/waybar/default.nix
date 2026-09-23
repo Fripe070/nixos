@@ -30,6 +30,7 @@
             "battery"
             "cpu"
             "memory"
+            "disk"
           ];
 
           "clock" = {
@@ -184,6 +185,10 @@
             format = " {used:0.1f}G";
             tooltip-format = "RAM: {used:0.1f}GiB / {total:0.1f}GiB ({percentage}%)\nSwap: {swapUsed:0.1f}GiB / {swapTotal:0.1f}GiB";
             on-click = "uwsm app -t service -- kitty -e btop";
+          };
+
+          "disk" = {
+            format = " {percentage_used}%";
           };
         };
       };
