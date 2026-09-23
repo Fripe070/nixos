@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "**/waybar/**/*.css": "less",
+    "**/waybar/*.css": "less"
+  },
+  "less.lint.unknownAtRules": "ignore"
+}

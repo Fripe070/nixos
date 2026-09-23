@@ -4,6 +4,7 @@
     programs.waybar = {
       enable = true;
       systemd.enable = true;
+      style = builtins.readFile ./style.css;
       settings = {
         mainBar = {
           layer = "top";
@@ -102,6 +103,13 @@
             tooltip = true;
             tooltip-format-activated = "Idle inhibitor: active (screen kept awake)";
             tooltip-format-deactivated = "Idle inhibitor: inactive";
+          };
+
+
+          "hyprland/workspaces" = {
+            persistent-workspaces = {
+              "*" = 5;
+            };
           };
 
 
