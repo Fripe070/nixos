@@ -2,7 +2,7 @@
   imports = [
     ./hyprland.nix
     ./input.nix
-    ./waybar.nix
+    ./waybar
     ./lock.nix
     ./launcher.nix
     ./misc.nix
