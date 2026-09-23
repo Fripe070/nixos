@@ -31,7 +31,7 @@ in
       early-exit = true
       initial-tool = "brush"
       copy-command = "wl-copy"
-      save-after-copy = true
+      save-after-copy = false
     '';
   };
 }

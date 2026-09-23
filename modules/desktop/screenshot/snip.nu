@@ -1,13 +1,7 @@
 #!/usr/bin/env nu
 
 def open_file_manager [target: string] {
-    busctl --user call                \
-        org.freedesktop.FileManager1  \
-        /org/freedesktop/FileManager1 \
-        org.freedesktop.FileManager1  \
-        ShowItems                     \
-        as 1 $"file://($target)"      \
-        s ""
+    dolphin --select $target
 }
 
 def notify_and_handle [target: string, kind: string] {
