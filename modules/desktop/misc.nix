@@ -19,6 +19,12 @@
     # GUI for Network Manager
     services.network-manager-applet.enable = true;
 
+    # Forward bluetooth media controls via MPRIS2 to control media players
+    services.mpris-proxy.enable = true;
+
+    # Track active media player
+    services.playerctld.enable = true;
+
     home.packages = with pkgs; [
       # Bluetooth UI
       overskride

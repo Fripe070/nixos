@@ -95,6 +95,12 @@
     bindld = [
       ", XF86AudioMute, Toggle mute, exec, swayosd-client --output-volume mute-toggle"
       ", XF86AudioMicMute, Toggle microphone mute, exec, swayosd-client --input-volume mute-toggle"
+
+      ", XF86AudioPlay, Play/Pause media, exec, swayosd-client --playerctl play-pause"
+      ", XF86AudioPause, Play/Pause media, exec, swayosd-client --playerctl play-pause"
+      ", XF86AudioNext, Next track, exec, swayosd-client --playerctl next"
+      ", XF86AudioPrev, Previous track, exec, swayosd-client --playerctl prev"
+      ", XF86AudioStop, Stop media, exec, swayosd-client --playerctl stop"
     ];
 
     # format: "fingers, direction, action, options"
