@@ -13,6 +13,7 @@
       "shell.nix"
       "files.nix"
       "develop.nix"
+      "gaming.nix"
     ]);
 
   # Machine-specific configuration
@@ -64,6 +65,9 @@
     extraPackages = with pkgs; [
       intel-media-driver
       vpl-gpu-rt
+    ];
+    extraPackages32 = with pkgs.pkgsi686Linux; [
+      intel-media-driver
     ];
   };
 }
