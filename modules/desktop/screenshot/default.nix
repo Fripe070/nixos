@@ -1,9 +1,7 @@
 { pkgs, identity, ... }:
 
 let
-  snip = pkgs.writeShellScriptBin "snip" ''
-    exec ${pkgs.nushell}/bin/nu ${./snip.nu} "$@"
-  '';
+  snip = pkgs.writers.writeNuBin "snip" (builtins.readFile ./snip.nu);
 in
 {
   home-manager.users.${identity.username} = { pkgs, ... }: {
