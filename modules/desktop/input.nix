@@ -1,4 +1,67 @@
-{ lib, identity, ... }:
+{ lib, pkgs, identity, ... }:
+
+let
+  toggleLayout = pkgs.writers.writeNuBin "hypr-toggle-layout" ''
+    def main [] {
+      let ws = (hyprctl activeworkspace -j | complete)
+      if $ws.exit_code != 0 or ($ws.stdout | str trim | is-empty) { return }
+
+      let data = ($ws.stdout | from json)
+      let id = $data.id?
+      if ($id == null) { return }
+
+      let current = ($data.tiledLayout? | default "")
+      let new_layout = if $current == "dwindle" { "scrolling" } else { "dwindle" }
+
+      hyprctl keyword workspace $"($id), layout:($new_layout)"
+      notify-send -a "Hyprland" -u low -t 1000 \
+        -h boolean:transient:true \
+        -h string:x-canonical-private-synchronous:hypr-layout \
+        "Layout Switched" $"Workspace ($id) layout set to ($new_layout)"
+    }
+  '';
+  toggleScratchpad = pkgs.writers.writeNuBin "hypr-toggle-scratchpad" ''
+    def main [] {
+      let mon = (hyprctl monitors -j | from json | filter { |m| ($m.focused? | default false) == true } | get -i 0)
+      let is_open = (($mon.specialWorkspace?.name? | default "") | is-not-empty)
+
+      if $is_open {
+        hyprctl dispatch togglespecialworkspace
+      } else {
+        let count = (hyprctl clients -j | from json | filter { |c| $c.workspace?.name? == "special:special" } | length)
+        if $count > 0 {
+          hyprctl dispatch togglespecialworkspace
+        } else {
+          notify-send -a "Hyprland" -u low -t 1000 -h boolean:transient:true "Scratchpad" "Scratchpad is empty"
+        }
+      }
+    }
+  '';
+
+  toggleWindowScratchpad = pkgs.writers.writeNuBin "hypr-toggle-window-scratchpad" ''
+    def main [dir?: string] {
+      let win = (hyprctl activewindow -j | complete)
+      if $win.exit_code != 0 or ($win.stdout | str trim | is-empty) { return }
+
+      let data = ($win.stdout | from json)
+      let ws_name = ($data.workspace?.name? | default "")
+
+      if $ws_name == "special:special" {
+        let special_windows = (hyprctl clients -j | from json | filter { |c| $c.workspace?.name? == "special:special" })
+        let remaining = ($special_windows | filter { |c| $c.address != $data.address } | length)
+
+        hyprctl dispatch movetoworkspacesilent "e+0"
+
+        if $remaining == 0 {
+          hyprctl dispatch togglespecialworkspace
+        }
+      } else {
+        hyprctl dispatch movetoworkspacesilent "special"
+        notify-send -a "Hyprland" -u low -t 1000 -h boolean:transient:true "Scratchpad" "Window stashed in scratchpad"
+      }
+    }
+  '';
+in
 {
   home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings = {
     # https://wiki.hypr.land/Configuring/Binds/
@@ -22,18 +85,26 @@
       "SUPER, SPACE,   Application launcher, exec, uwsm app -- vicinae toggle"
       "SUPER, N,       Notification history, exec, swaync-client --toggle-panel"
       "SUPER, L,       Lock the screen, exec, loginctl lock-session"
+      "SUPER SHIFT, L, Switch between dwindle and scrolling layout, exec, ${toggleLayout}/bin/hypr-toggle-layout"
 
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
       "SUPER SHIFT, B, Private browser, exec, uwsm app -- firefox --private-window"
 
       ", Print,        Screenshot,       exec, snip screenshot"
-      "SUPER SHIFT, S, Screenshot,       exec, snip screenshot"
-      "SUPER SHIFT, R, Record selection, exec, snip record"
+      "SHIFT, Print,   Record selection, exec, snip record"
       "SUPER, Escape,  Stop recording,   exec, snip stop"
 
-      # A lot of the below is copied from omarchy
-      
+      # Mac-style clipboard / editing shortcuts
+      "SUPER, C, Copy in terminal, sendshortcut, CTRL SHIFT, c, class:^(kitty)$"
+      "SUPER, V, Paste in terminal, sendshortcut, CTRL SHIFT, v, class:^(kitty)$"
+      "SUPER, C, Copy,       sendshortcut, CTRL, c,"
+      "SUPER, V, Paste,      sendshortcut, CTRL, v,"
+      "SUPER, X, Cut,        sendshortcut, CTRL, x,"
+      "SUPER, A, Select all, sendshortcut, CTRL, a,"
+      "SUPER, Z, Undo,       sendshortcut, CTRL, z,"
+      "SUPER SHIFT, Z, Redo, sendshortcut, CTRL SHIFT, z,"
+
       "SUPER, W,       Close active window,      killactive,"
       "SUPER SHIFT, W, Force kill active window, forcekillactive,"
       # Window Movement
@@ -52,17 +123,25 @@
       "SUPER SHIFT, RIGHT, Swap window to the right, swapwindow, r"
       "SUPER SHIFT, UP,    Swap window up,           swapwindow, u"
       "SUPER SHIFT, DOWN,  Swap window down,         swapwindow, d"
-
       # Resize active window
-      "SUPER ALT, RIGHT, Increase window width,  resizeactive, 100 0"
-      "SUPER ALT, DOWN,  Increase window height, resizeactive, 0 100"
-      "SUPER ALT, LEFT,  Decrease window width,  resizeactive, -100 0"
-      "SUPER ALT, UP,    Decrease window height, resizeactive, 0 -100"
+      "SUPER CTRL, RIGHT, Increase window width,  resizeactive, 100 0"
+      "SUPER CTRL, DOWN,  Increase window height, resizeactive, 0 100"
+      "SUPER CTRL, LEFT,  Decrease window width,  resizeactive, -100 0"
+      "SUPER CTRL, UP,    Decrease window height, resizeactive, 0 -100"
+
+      # Groups
+      "SUPER, G,         Toggle window group,           togglegroup,"
+      "SUPER, Tab,       Cycle next in group,           changegroupactive, f"
+      "SUPER SHIFT, Tab, Cycle previous in group,       changegroupactive, b"
+      "SUPER ALT, LEFT,  Move window or into/out of group left,  movewindoworgroup, l"
+      "SUPER ALT, RIGHT, Move window or into/out of group right, movewindoworgroup, r"
+      "SUPER ALT, UP,    Move window or into/out of group up,    movewindoworgroup, u"
+      "SUPER ALT, DOWN,  Move window or into/out of group down,  movewindoworgroup, d"
+      "SUPER ALT, mouse:272, Detach active window from group,   moveoutofgroup,"
 
       # Workspaces
-      # TAB between workspaces
-      "SUPER, TAB,       Next workspace,     workspace, e+1"
-      "SUPER SHIFT, TAB, Previous workspace, workspace, e-1"
+      "SUPER, S, Toggle special workspace, exec, ${toggleScratchpad}/bin/hypr-toggle-scratchpad"
+      "SUPER CTRL, S, Move window in/out of special workspace, exec, ${toggleWindowScratchpad}/bin/hypr-toggle-window-scratchpad"
     ] ++ lib.concatMap (
       workspace: let
         nr = toString workspace;
@@ -70,9 +149,9 @@
       in [
         # Switch workspaces with SUPER + [1-9; 0]
         "SUPER, ${key}, Switch to workspace ${nr}, workspace, ${nr}"
-        # Move window to a workspace with SUPER + SHIFT + [1-9; 0]
+        # Move window to a workspace
         "SUPER SHIFT, ${key}, Move window to workspace ${nr}, movetoworkspace, ${nr}"
-        # Move window to a workspace without switching to it
+        # Move window to a workspace without following
         "SUPER CTRL SHIFT, ${key}, Move window silently to workspace ${nr}, movetoworkspacesilent, ${nr}"
       ]
     ) (lib.range 1 10);
@@ -81,6 +160,7 @@
       # Window controls
       "SUPER, mouse:272, movewindow"   # Left mouse
       "SUPER, mouse:273, resizewindow" # Right mouse
+      "SUPER ALT, mouse:272, movewindow" # Drag into or out of groups
     ];
 
     # Repeat while held + works while locked + description

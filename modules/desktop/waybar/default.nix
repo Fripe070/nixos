@@ -111,6 +111,8 @@
             persistent-workspaces = {
               "*" = 5;
             };
+            show-special = true;
+            special-visible-only = true;
           };
 
 
