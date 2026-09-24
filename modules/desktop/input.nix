@@ -37,7 +37,6 @@ let
       }
     }
   '';
-
   toggleWindowScratchpad = pkgs.writers.writeNuBin "hypr-toggle-window-scratchpad" ''
     def main [dir?: string] {
       let win = (hyprctl activewindow -j | complete)
@@ -51,7 +50,6 @@ let
         let remaining = ($special_windows | filter { |c| $c.address != $data.address } | length)
 
         hyprctl dispatch movetoworkspacesilent "e+0"
-
         if $remaining == 0 {
           hyprctl dispatch togglespecialworkspace
         }
@@ -95,16 +93,6 @@ in
       "SHIFT, Print,   Record selection, exec, snip record"
       "SUPER, Escape,  Stop recording,   exec, snip stop"
 
-      # Mac-style clipboard / editing shortcuts
-      "SUPER, C, Copy in terminal, sendshortcut, CTRL SHIFT, c, class:^(kitty)$"
-      "SUPER, V, Paste in terminal, sendshortcut, CTRL SHIFT, v, class:^(kitty)$"
-      "SUPER, C, Copy,       sendshortcut, CTRL, c,"
-      "SUPER, V, Paste,      sendshortcut, CTRL, v,"
-      "SUPER, X, Cut,        sendshortcut, CTRL, x,"
-      "SUPER, A, Select all, sendshortcut, CTRL, a,"
-      "SUPER, Z, Undo,       sendshortcut, CTRL, z,"
-      "SUPER SHIFT, Z, Redo, sendshortcut, CTRL SHIFT, z,"
-
       "SUPER, W,       Close active window,      killactive,"
       "SUPER SHIFT, W, Force kill active window, forcekillactive,"
       # Window Movement
@@ -128,16 +116,6 @@ in
       "SUPER CTRL, DOWN,  Increase window height, resizeactive, 0 100"
       "SUPER CTRL, LEFT,  Decrease window width,  resizeactive, -100 0"
       "SUPER CTRL, UP,    Decrease window height, resizeactive, 0 -100"
-
-      # Groups
-      "SUPER, G,         Toggle window group,           togglegroup,"
-      "SUPER, Tab,       Cycle next in group,           changegroupactive, f"
-      "SUPER SHIFT, Tab, Cycle previous in group,       changegroupactive, b"
-      "SUPER ALT, LEFT,  Move window or into/out of group left,  movewindoworgroup, l"
-      "SUPER ALT, RIGHT, Move window or into/out of group right, movewindoworgroup, r"
-      "SUPER ALT, UP,    Move window or into/out of group up,    movewindoworgroup, u"
-      "SUPER ALT, DOWN,  Move window or into/out of group down,  movewindoworgroup, d"
-      "SUPER ALT, mouse:272, Detach active window from group,   moveoutofgroup,"
 
       # Workspaces
       "SUPER, S, Toggle special workspace, exec, ${toggleScratchpad}/bin/hypr-toggle-scratchpad"

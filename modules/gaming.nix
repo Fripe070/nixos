@@ -36,13 +36,5 @@
       lutris
       prismlauncher
     ];
-
-    wayland.windowManager.hyprland.settings = {
-      windowrulev2 = [
-        # Don't sleep while gaming
-        "idleinhibit fullscreen, class:^(steam_app_.*)$"
-        "idleinhibit fullscreen, class:^(gamescope)$"
-      ];
-    };
   };
 }

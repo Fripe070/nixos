@@ -36,10 +36,6 @@
         };
         dwindle = {
           preserve_split = true; # I want to handle it myself
-          special_scale_factor = 0.85;
-        };
-        decoration = {
-          dim_special = 0.45;
         };
         workspace = [
           "special:special, gapsout:35"
@@ -49,11 +45,8 @@
           disable_splash_rendering = true;
         };
         group = {
-          drag_into_group = 1;
+          drag_into_group = 2;
           merge_groups_on_drag = true;
-          groupbar = {
-            disable_when_only = true;
-          };
         };
         # Scrolling for people who aren't freaks
         input.touchpad.natural_scroll = true;
