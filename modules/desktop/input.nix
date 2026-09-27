@@ -3,21 +3,37 @@
 let
   toggleLayout = pkgs.writers.writeNuBin "hypr-toggle-layout" ''
     def main [] {
-      let ws = (hyprctl activeworkspace -j | complete)
-      if $ws.exit_code != 0 or ($ws.stdout | str trim | is-empty) { return }
+      let mon = (hyprctl monitors -j | from json | where { |m| ($m.focused? | default false) == true } | get -o 0)
+      if ($mon == null) { return }
 
-      let data = ($ws.stdout | from json)
-      let id = $data.id?
-      if ($id == null) { return }
+      let special_name = ($mon.specialWorkspace?.name? | default "")
+      let ws = if ($special_name | is-not-empty) {
+        hyprctl workspaces -j | from json | where name == $special_name | get -o 0
+      } else {
+        let raw = (hyprctl activeworkspace -j | complete)
+        if $raw.exit_code != 0 or ($raw.stdout | str trim | is-empty) { return }
+        $raw.stdout | from json
+      }
+      if ($ws == null) { return }
 
-      let current = ($data.tiledLayout? | default "")
-      let new_layout = if $current == "dwindle" { "scrolling" } else { "dwindle" }
+      let ws_name = ($ws.name? | default "")
+      if ($ws_name | is-empty) { return }
 
-      hyprctl keyword workspace $"($id), layout:($new_layout)"
-      notify-send -a "Hyprland" -u low -t 1000 \
-        -h boolean:transient:true \
-        -h string:x-canonical-private-synchronous:hypr-layout \
-        "Layout Switched" $"Workspace ($id) layout set to ($new_layout)"
+      let layouts = [ "scrolling" "dwindle" "master" "monocle" ]
+      let current = ($ws.tiledLayout? | default "")
+      let idx = ($layouts | enumerate | where item == $current | get -o 0.index)
+      let next_layout = if ($idx != null) {
+        let next_idx = (($idx + 1) mod ($layouts | length))
+        $layouts | get $next_idx
+      } else {
+        $layouts | get 0
+      }
+
+      let is_special = ($special_name | is-not-empty)
+      let ws_target = if $is_special { $"($ws_name)" } else { $"name:($ws_name)" }
+
+      hyprctl keyword workspace $"($ws_target), layout:($next_layout)"
+      notify-send -a "Hyprland" -u low -t 2000 -h "boolean:transient:true" -h "string:x-canonical-private-synchronous:hypr-layout" "Layout Switched" $"Workspace ($ws_name) layout set to ($next_layout)"
     }
   '';
   toggleScratchpad = pkgs.writers.writeNuBin "hypr-toggle-scratchpad" ''
@@ -83,7 +99,7 @@ in
       "SUPER, SPACE,   Application launcher, exec, uwsm app -- vicinae toggle"
       "SUPER, N,       Notification history, exec, swaync-client --toggle-panel"
       "SUPER, L,       Lock the screen, exec, loginctl lock-session"
-      "SUPER SHIFT, L, Switch between dwindle and scrolling layout, exec, ${toggleLayout}/bin/hypr-toggle-layout"
+      "SUPER SHIFT, L, Cycle workspace layout, exec, ${toggleLayout}/bin/hypr-toggle-layout"
 
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
