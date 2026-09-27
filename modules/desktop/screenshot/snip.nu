@@ -42,7 +42,7 @@ def capture_screenshot [] {
     mkdir $dir
     let file = ($dir | path join $"screenshot-((date now) | format date '%Y%m%d-%H%M%S').png")
 
-    let res = (grimblast --freeze copysave area $file | complete)
+    let res = (grimblast --freeze copysave area $file e> /dev/null | complete)
     if $res.exit_code != 0 or not ($file | path exists) { return }
 
     notify_and_handle $file "screenshot"

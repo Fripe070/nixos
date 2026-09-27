@@ -5,7 +5,7 @@
 
     home.packages = with pkgs; [
       firefox
-      vscode
+      vscodium-fhs
       zed
 
       kdePackages.dolphin # file manager

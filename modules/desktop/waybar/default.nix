@@ -63,8 +63,8 @@
 
           "network" = {
             format-icons = ["󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 "];
-            format-wifi     = "{essid:.10} {icon}";
-            format-ethernet = "{ipaddr} 󰈀 ";
+            format-wifi     = "{icon}";
+            format-ethernet = "󰈀 ";
             format-linked   = "No IP 󰈀 ";
             format-disconnected = "󰀝 ";
 
