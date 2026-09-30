@@ -127,11 +127,6 @@ in
       "SUPER SHIFT, RIGHT, Swap window to the right, swapwindow, r"
       "SUPER SHIFT, UP,    Swap window up,           swapwindow, u"
       "SUPER SHIFT, DOWN,  Swap window down,         swapwindow, d"
-      # Resize active window
-      "SUPER CTRL, RIGHT, Increase window width,  resizeactive, 100 0"
-      "SUPER CTRL, DOWN,  Increase window height, resizeactive, 0 100"
-      "SUPER CTRL, LEFT,  Decrease window width,  resizeactive, -100 0"
-      "SUPER CTRL, UP,    Decrease window height, resizeactive, 0 -100"
 
       # Workspaces
       "SUPER, S, Toggle special workspace, exec, ${toggleScratchpad}/bin/hypr-toggle-scratchpad"
@@ -149,6 +144,14 @@ in
         "SUPER CTRL SHIFT, ${key}, Move window silently to workspace ${nr}, movetoworkspacesilent, ${nr}"
       ]
     ) (lib.range 1 10);
+    
+    binded = [
+      # Resize active window
+      "SUPER ALT, RIGHT, Increase window width,  resizeactive, 50 0"
+      "SUPER ALT, DOWN,  Increase window height, resizeactive, 0 50"
+      "SUPER ALT, LEFT,  Decrease window width,  resizeactive, -50 0"
+      "SUPER ALT, UP,    Decrease window height, resizeactive, 0 -50"
+    ];
 
     bindm = [
       # Window controls
