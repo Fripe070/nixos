@@ -77,7 +77,10 @@ let
   '';
 in
 {
-  home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings = {
+  home-manager.users.${identity.username} = {
+    home.packages = [ pkgs.hyprpicker ];
+
+    wayland.windowManager.hyprland.settings = {
     # https://wiki.hypr.land/Configuring/Binds/
     /*l (locked)	          Will also work when an input inhibitor (e.g. a lockscreen) is active.
       r	(release)           Will trigger on release of a key.
@@ -104,6 +107,8 @@ in
       "SUPER, RETURN,  Terminal, exec, uwsm app -- kitty"
       "SUPER, B,       Browser, exec, uwsm app -- firefox"
       "SUPER SHIFT, B, Private browser, exec, uwsm app -- firefox --private-window"
+
+      "SUPER SHIFT, C, Pick color, exec, hyprpicker -a"
 
       ", Print,        Screenshot,       exec, snip screenshot"
       "SHIFT, Print,   Record selection, exec, snip record"
@@ -184,5 +189,6 @@ in
     gesture = [
       "3, horizontal, workspace" # 3-finger swipe to switch workspace
     ];
+    };
   };
 }
