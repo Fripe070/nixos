@@ -8,6 +8,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     vicinae.url = "github:vicinaehq/vicinae";
     stylix = {
       url = "github:nix-community/stylix";
@@ -22,7 +27,10 @@
   {
     nixosConfigurations = {
       laptop = inputs.nixpkgs.lib.nixosSystem {
-        modules = [ ./hosts/laptop ];
+        modules = [
+          ./hosts/laptop
+          inputs.nix-index-database.nixosModules.default
+        ];
         specialArgs = { inherit inputs identity; };
       };
     };

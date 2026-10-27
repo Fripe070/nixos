@@ -1,7 +1,9 @@
 { pkgs, lib, identity, ... }:
 {
   # Wiki says to enable it system-wide even if already enabled in  home-manager
-  programs.fish.enable = true; 
+  programs.fish.enable = true;
+
+  programs.nix-index-database.comma.enable = true;
   # Bash remains our default shell for non-interactive use (so that scripts work as expected)
   # but we switch to fish immediately if it is interactive
   programs.bash = {
