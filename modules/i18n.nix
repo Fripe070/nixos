@@ -19,7 +19,7 @@
     variant = "nodeadkeys";
   };
   # Keyboard layout for hyprland
-  home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings.input.kb_layout = "se";
+  home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings.config.input.kb_layout = "se";
   # Configure console keymap
   console.keyMap = "sv-latin1";
 }

@@ -134,18 +134,7 @@ in
       };
     };
 
-    wayland.windowManager.hyprland.settings = {
-      animation = [
-        "fade, 0"
-        "windows, 1, 1, default, slide"
-        "workspaces, 1, 2, default, slidefade"
-      ];
-      decoration = {
-        active_opacity = 1.0;
-        inactive_opacity = 0.92;
-        dim_special = 0.5;
-      };
-    };
+    wayland.windowManager.hyprland.extraLuaFiles.appearance = ../hyprland/appearance.lua;
 
     programs.kitty.settings = {
       cursor_trail = 5;

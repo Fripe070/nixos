@@ -6,7 +6,6 @@
     home.packages = with pkgs; [
       firefox
       vscodium-fhs
-      zed
 
       kdePackages.dolphin # file manager
       kdePackages.ark     # archive manager
