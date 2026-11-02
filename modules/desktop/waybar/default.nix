@@ -14,29 +14,46 @@
         mainBar = {
           layer = "top";
           position = "top";
-          height = 34;
+          height = 30;
           spacing = 0;
 
-          modules-left = [
-            "clock"
-            "custom/notification"
-            "network"
-            "bluetooth"
-            "tray"
-            "idle_inhibitor"
-          ];
-          modules-center = [
-            "hyprland/workspaces"
-          ];
+          modules-left = [ "hyprland/workspaces" ];
+          modules-center = [ "clock" ];
           modules-right = [
             "custom/recorder"
             "privacy"
-            "pulseaudio"
-            "battery"
-            "cpu"
-            "memory"
-            "disk"
+            "tray"
+            "group/connectivity"
+            "group/system"
+            "group/status"
           ];
+
+          "group/connectivity" = {
+            orientation = "inherit";
+            modules = [
+              "network"
+              "bluetooth"
+              "pulseaudio"
+            ];
+          };
+
+          "group/system" = {
+            orientation = "inherit";
+            modules = [
+              "cpu"
+              "memory"
+              "disk"
+            ];
+          };
+
+          "group/status" = {
+            orientation = "inherit";
+            modules = [
+              "battery"
+              "idle_inhibitor"
+              "custom/notification"
+            ];
+          };
 
           "clock" = {
             format = "{:%H:%M:%S}";

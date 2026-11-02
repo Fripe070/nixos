@@ -10,7 +10,7 @@
     # Notifications
     services.swaync.enable = true;
     services.swaync.settings = {
-      positionX = "left";
+      positionX = "right";
     };
 
     # Clipboard history

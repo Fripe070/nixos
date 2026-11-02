@@ -1,1 +1,148 @@
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-size: 10pt;
+  transition: none;
+}
 
+window#waybar {
+  background: transparent;
+  color: @base05;
+}
+
+tooltip {
+  background: @base00;
+  border: 1px solid @base02;
+}
+
+tooltip label {
+  color: @base05;
+}
+
+#clock,
+#tray,
+#privacy,
+#custom-recorder,
+#network,
+#bluetooth,
+#pulseaudio,
+#cpu,
+#memory,
+#disk,
+#battery,
+#idle_inhibitor,
+#custom-notification {
+  padding: 0 8px;
+}
+
+/* Stylix draws an underline with ".modules-* #workspaces button"; these must out-specify it. */
+
+#workspaces button,
+.modules-left #workspaces button,
+.modules-center #workspaces button,
+.modules-right #workspaces button {
+  background: transparent;
+  color: @base03;
+  border: none;
+  border-bottom: none;
+  box-shadow: none;
+  padding: 0 8px;
+  margin: 0;
+}
+
+#workspaces button:hover,
+.modules-left #workspaces button:hover {
+  background: @base01;
+  color: @base05;
+  box-shadow: none;
+}
+
+#workspaces button.active,
+#workspaces button.focused,
+.modules-left #workspaces button.active,
+.modules-left #workspaces button.focused {
+  background: @base0D;
+  color: @base00;
+  border-bottom: none;
+}
+
+#workspaces button.urgent,
+.modules-left #workspaces button.urgent {
+  background: @base08;
+  color: @base00;
+  border-bottom: none;
+}
+
+#clock {
+  color: @base0D;
+  font-weight: bold;
+}
+
+#network { color: @base0C; }
+#bluetooth { color: @base0D; }
+#pulseaudio { color: @base0E; }
+
+#cpu { color: @base0B; }
+#memory { color: @base0A; }
+#disk { color: @base09; }
+
+#battery { color: @base0B; }
+#idle_inhibitor { color: @base04; }
+#custom-notification { color: @base0E; }
+
+#custom-recorder {
+  background: @base08;
+  color: @base00;
+}
+
+#privacy {
+  background: @base09;
+  color: @base00;
+}
+
+#network.disconnected,
+#bluetooth.disabled,
+#pulseaudio.muted {
+  color: @base03;
+}
+
+#idle_inhibitor.activated {
+  color: @base0A;
+}
+
+#cpu.warning,
+#memory.warning,
+#battery.warning {
+  color: @base09;
+}
+
+#cpu.critical,
+#memory.critical,
+#battery.critical {
+  background: @base08;
+  color: @base00;
+}
+
+#battery.charging,
+#battery.plugged {
+  color: @base0B;
+}
+
+#workspaces,
+#clock,
+#tray,
+#privacy,
+#custom-recorder,
+#connectivity,
+#system,
+#status {
+  background: @base01;
+  margin: 2px 3px;
+}
+
+.modules-left { margin-left: 2px; }
+.modules-right { margin-right: 2px; }
+
+#custom-recorder { background: @base08; }
+#privacy { background: @base09; }
