@@ -80,6 +80,12 @@ tooltip label {
   border-bottom: none;
 }
 
+#custom-special {
+  background: @base0E;
+  color: @base00;
+  padding: 0 6px;
+}
+
 #mpris { color: @base0B; }
 #mpris.paused { color: @base03; }
 
@@ -139,6 +145,7 @@ tooltip label {
 }
 
 #workspaces,
+#custom-special,
 #clock,
 #mpris,
 #tray,
@@ -156,3 +163,4 @@ tooltip label {
 
 #custom-recorder { background: @base08; }
 #privacy { background: @base09; }
+#custom-special { background: @base0E; }

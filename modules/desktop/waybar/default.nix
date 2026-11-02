@@ -5,7 +5,23 @@
   ...
 }:
 {
-  home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
+  home-manager.users.${identity.username} = { pkgs, inputs, ... }:
+  let
+    specialWorkspace = pkgs.writeShellScript "waybar-special-workspace" ''
+      print() {
+        name=$(${pkgs.hyprland}/bin/hyprctl monitors -j | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .specialWorkspace.name')
+        if [ -n "$name" ]; then echo '{"text": "S"}'; else echo '{"text": ""}'; fi
+      }
+
+      print
+      ${pkgs.socat}/bin/socat -u "UNIX-CONNECT:$XDG_RUNTIME_DIR/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock" - | while read -r line; do
+        case $line in
+          activespecial*|focusedmon*) print ;;
+        esac
+      done
+    '';
+  in
+  {
     programs.waybar = {
       enable = true;
       systemd.enable = true;
@@ -17,7 +33,10 @@
           height = 30;
           spacing = 0;
 
-          modules-left = [ "hyprland/workspaces" ];
+          modules-left = [
+            "hyprland/workspaces"
+            "custom/special"
+          ];
           modules-center = [
             "clock"
             "mpris"
@@ -165,8 +184,12 @@
             persistent-workspaces = {
               "*" = 5;
             };
-            show-special = true;
-            special-visible-only = true;
+          };
+
+          "custom/special" = {
+            exec = "${specialWorkspace}";
+            return-type = "json";
+            tooltip = false;
           };
 
           "custom/recorder" = {
