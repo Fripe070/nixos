@@ -18,7 +18,10 @@
           spacing = 0;
 
           modules-left = [ "hyprland/workspaces" ];
-          modules-center = [ "clock" ];
+          modules-center = [
+            "clock"
+            "mpris"
+          ];
           modules-right = [
             "custom/recorder"
             "privacy"
@@ -59,6 +62,19 @@
             format = "{:%H:%M:%S}";
             interval = 1;
             tooltip-format = "{:%A, %d %B %Y}";
+          };
+
+          "mpris" = {
+            format = "{status_icon} {title}";
+            status-icons = {
+              playing = "󰐊";
+              paused = "󰏤";
+            };
+            max-length = 22;
+            ellipsis = "…";
+            tooltip-format = "{artist} - {title}\n{album}";
+            on-click = "playerctl play-pause";
+            on-click-right = "playerctl next";
           };
 
           "custom/notification" = {

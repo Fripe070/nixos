@@ -21,6 +21,7 @@ tooltip label {
 }
 
 #clock,
+#mpris,
 #tray,
 #privacy,
 #custom-recorder,
@@ -43,12 +44,17 @@ tooltip label {
 .modules-center #workspaces button,
 .modules-right #workspaces button {
   background: transparent;
-  color: @base03;
+  color: @base05;
   border: none;
   border-bottom: none;
   box-shadow: none;
   padding: 0 8px;
   margin: 0;
+}
+
+#workspaces button.empty,
+.modules-left #workspaces button.empty {
+  color: @base03;
 }
 
 #workspaces button:hover,
@@ -73,6 +79,9 @@ tooltip label {
   color: @base00;
   border-bottom: none;
 }
+
+#mpris { color: @base0B; }
+#mpris.paused { color: @base03; }
 
 #clock {
   color: @base0D;
@@ -131,6 +140,7 @@ tooltip label {
 
 #workspaces,
 #clock,
+#mpris,
 #tray,
 #privacy,
 #custom-recorder,
