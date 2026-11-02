@@ -21,20 +21,24 @@
     nixvim.url = "github:nix-community/nixvim";
   };
 
-  outputs = inputs: let
-    identity = import ./identity.nix;
-  in
-  {
-    nixosConfigurations = {
-      laptop = inputs.nixpkgs.lib.nixosSystem {
-        modules = [
-          ./hosts/laptop
-          inputs.nix-index-database.nixosModules.default
-        ];
-        specialArgs = { inherit inputs identity; };
+  outputs =
+    inputs:
+    let
+      identity = import ./identity.nix;
+    in
+    {
+      formatter.x86_64-linux = inputs.nixpkgs.legacyPackages.x86_64-linux.nixfmt-tree;
+
+      nixosConfigurations = {
+        laptop = inputs.nixpkgs.lib.nixosSystem {
+          modules = [
+            ./hosts/laptop
+            inputs.nix-index-database.nixosModules.default
+          ];
+          specialArgs = { inherit inputs identity; };
+        };
       };
     };
-  };
 
   nixConfig = {
     # Lso updatw

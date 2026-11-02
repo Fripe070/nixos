@@ -10,7 +10,7 @@
     };
   };
   # Prevent The kernel from printing into ly
-  boot.kernelParams = [ "console=tty1"];
+  boot.kernelParams = [ "console=tty1" ];
 
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     # Screen locking (this and my display manager can't be the same because... linux)

@@ -1,5 +1,5 @@
 { identity, ... }:
-{  
+{
   i18n.defaultLocale = "en_GB.UTF-8";
   i18n.extraLocaleSettings = {
     LC_TIME = "en_GB.UTF-8";
@@ -19,7 +19,8 @@
     variant = "nodeadkeys";
   };
   # Keyboard layout for hyprland
-  home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings.config.input.kb_layout = "se";
+  home-manager.users.${identity.username}.wayland.windowManager.hyprland.settings.config.input.kb_layout =
+    "se";
   # Configure console keymap
   console.keyMap = "sv-latin1";
 }

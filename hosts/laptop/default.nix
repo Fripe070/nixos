@@ -1,20 +1,29 @@
-{ lib, pkgs, inputs, config, identity, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  config,
+  identity,
+  ...
+}:
 {
   networking.hostName = "laptop";
 
-  imports = [ ./hardware-configuration.nix ] ++ 
-    (map (module: ../../modules/${module}) [
-      "common.nix"
-      "i18n.nix"
-      "connectivity.nix"
-      "audio.nix"
-      "desktop"
-      "programs.nix"
-      "shell.nix"
-      "files.nix"
-      "develop.nix"
-      "gaming.nix"
-    ]);
+  imports = [
+    ./hardware-configuration.nix
+  ]
+  ++ (map (module: ../../modules/${module}) [
+    "common.nix"
+    "i18n.nix"
+    "connectivity.nix"
+    "audio.nix"
+    "desktop"
+    "programs.nix"
+    "shell.nix"
+    "files.nix"
+    "develop.nix"
+    "gaming.nix"
+  ]);
 
   # Machine-specific configuration
 
@@ -23,13 +32,15 @@
     HandleLidSwitchExternalPower = "suspend";
     HandleLidSwitchDocked = "ignore";
   };
-  
+
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     # Full systemctl suspend on laptop specifically
-    services.hypridle.settings.listener = lib.mkAfter [{
-      timeout = 1800;
-      on-timeout = "systemctl suspend";
-    }];
+    services.hypridle.settings.listener = lib.mkAfter [
+      {
+        timeout = 1800;
+        on-timeout = "systemctl suspend";
+      }
+    ];
 
     wayland.windowManager.hyprland.settings = {
       monitor = {
@@ -40,7 +51,7 @@
       };
     };
   };
-  
+
   services = {
     tlp.enable = true;
     thermald.enable = true;

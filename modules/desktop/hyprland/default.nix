@@ -1,4 +1,9 @@
-{ pkgs, identity, inputs, ... }:
+{
+  pkgs,
+  identity,
+  inputs,
+  ...
+}:
 {
   programs.hyprland = {
     enable = true;

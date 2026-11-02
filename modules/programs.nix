@@ -1,25 +1,30 @@
-{ pkgs, identity, inputs, ... }:
+{
+  pkgs,
+  identity,
+  inputs,
+  ...
+}:
 {
   home-manager.users.${identity.username} = { config, pkgs, ... }: {
-    imports =  [ inputs.nixvim.homeModules.default ];
+    imports = [ inputs.nixvim.homeModules.default ];
 
     home.packages = with pkgs; [
       firefox
       vscodium-fhs
 
       kdePackages.dolphin # file manager
-      kdePackages.ark     # archive manager
+      kdePackages.ark # archive manager
 
-      loupe               # image viewer
-      vlc                 # video/media viewer
+      loupe # image viewer
+      vlc # video/media viewer
 
-      gimp                # image editor
-      krita               # other image editor
-      inkscape            # vector graphics
+      gimp # image editor
+      krita # other image editor
+      inkscape # vector graphics
 
       yt-dlp
     ];
-    
+
     home.sessionVariables = {
       EDITOR = "nvim";
       VISUAL = "code";

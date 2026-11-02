@@ -33,7 +33,7 @@
       overskride
       # Brightness control
       brightnessctl
-      # Audio control 
+      # Audio control
       pavucontrol
       # Media control (play, pause, etc)
       playerctl

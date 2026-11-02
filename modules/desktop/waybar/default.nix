@@ -1,4 +1,9 @@
-{ pkgs, identity, inputs, ... }:
+{
+  pkgs,
+  identity,
+  inputs,
+  ...
+}:
 {
   home-manager.users.${identity.username} = { pkgs, inputs, ... }: {
     programs.waybar = {
@@ -42,14 +47,14 @@
           "custom/notification" = {
             format = "{icon}";
             format-icons = {
-              notification                = "󱅫";
-              none                        = "󰂚";
-              dnd-notification            = "󱅫";
-              dnd-none                    = "󰂛";
-              inhibited-notification      = "󱅫";
-              inhibited-none              = "󰂚";
-              dnd-inhibited-notification  = "󱅫";
-              dnd-inhibited-none          = "󰂛";
+              notification = "󱅫";
+              none = "󰂚";
+              dnd-notification = "󱅫";
+              dnd-none = "󰂛";
+              inhibited-notification = "󱅫";
+              inhibited-none = "󰂚";
+              dnd-inhibited-notification = "󱅫";
+              dnd-inhibited-none = "󰂛";
             };
             tooltip = false;
 
@@ -62,10 +67,16 @@
           };
 
           "network" = {
-            format-icons = ["󰤯 " "󰤟 " "󰤢 " "󰤥 " "󰤨 "];
-            format-wifi     = "{icon}";
+            format-icons = [
+              "󰤯 "
+              "󰤟 "
+              "󰤢 "
+              "󰤥 "
+              "󰤨 "
+            ];
+            format-wifi = "{icon}";
             format-ethernet = "󰈀 ";
-            format-linked   = "No IP 󰈀 ";
+            format-linked = "No IP 󰈀 ";
             format-disconnected = "󰀝 ";
 
             tooltip-format-wifi = "SSID: {essid} ({icon}{signalStrength}%) {frequency}GHz\nIP: {ipaddr}\nGateway: {gwaddr}";
@@ -78,9 +89,20 @@
           "bluetooth" = {
             format = "󰂯";
             format-disabled = "󰂲";
-            format-connected         = "󰂱 {device_alias:.10}";
+            format-connected = "󰂱 {device_alias:.10}";
             format-connected-battery = "󰂱 {device_alias:.10} {icon}{device_battery_percentage}%";
-            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-icons = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
 
             tooltip-format = "{controller_alias}\t{controller_address}\n{num_connections} connected";
             tooltip-format-connected = "{controller_alias}\t{controller_address}\n{num_connections} connected\n\n{device_enumerate}";
@@ -106,7 +128,6 @@
             tooltip-format-deactivated = "Idle inhibitor: inactive";
           };
 
-
           "hyprland/workspaces" = {
             persistent-workspaces = {
               "*" = 5;
@@ -114,7 +135,6 @@
             show-special = true;
             special-visible-only = true;
           };
-
 
           "custom/recorder" = {
             format = "{}";
@@ -141,7 +161,12 @@
           "pulseaudio" = {
             format = "{icon}{volume}%";
             format-icons = {
-              default = [ " " " " " " "  " ];
+              default = [
+                " "
+                " "
+                " "
+                "  "
+              ];
               default-muted = " ";
               headphone = "󰋋 ";
               headphone-muted = "󰟎 ";
@@ -163,7 +188,18 @@
             format = "{icon} {capacity}%";
             format-charging = "󰂄 {capacity}%";
             format-plugged = "󰚥 {capacity}%";
-            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-icons = [
+              "󰁺"
+              "󰁻"
+              "󰁼"
+              "󰁽"
+              "󰁾"
+              "󰁿"
+              "󰂀"
+              "󰂁"
+              "󰂂"
+              "󰁹"
+            ];
             tooltip-format = "{timeTo} ({capacity}%)\nHealth: {health}%";
           };
 

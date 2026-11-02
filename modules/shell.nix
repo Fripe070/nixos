@@ -1,4 +1,9 @@
-{ pkgs, lib, identity, ... }:
+{
+  pkgs,
+  lib,
+  identity,
+  ...
+}:
 {
   # Wiki says to enable it system-wide even if already enabled in  home-manager
   programs.fish.enable = true;
@@ -17,10 +22,10 @@
   };
 
   home-manager.users.${identity.username} = { pkgs, ... }: {
-    home.packages = with pkgs; [ 
+    home.packages = with pkgs; [
       grc
       eza
-     ];
+    ];
 
     programs = {
       # My shell of choice
@@ -28,8 +33,14 @@
         # TODO: more of https://nixos.wiki/wiki/Fish
         enable = true;
         plugins = with pkgs; [
-          { name = "grc"; src = fishPlugins.grc.src; }
-          { name = "z"; src = fishPlugins.z.src; }
+          {
+            name = "grc";
+            src = fishPlugins.grc.src;
+          }
+          {
+            name = "z";
+            src = fishPlugins.z.src;
+          }
         ];
         interactiveShellInit = ''
           set fish_greeting
