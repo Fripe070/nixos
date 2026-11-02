@@ -9,6 +9,9 @@
 {
   networking.hostName = "laptop";
 
+  # Windows dualboot expects the hardware clock in local time
+  time.hardwareClockInLocalTime = true;
+
   imports = [
     ./hardware-configuration.nix
   ]
