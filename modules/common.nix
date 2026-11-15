@@ -2,6 +2,7 @@
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.bootvine.nixosModules.default
   ];
 
   nix.settings = {
@@ -35,6 +36,9 @@
       configurationLimit = 10;
     };
   };
+
+  # Boot animation showing systemd stages as a tree
+  services.bootvine.enable = true;
 
   # Permission control, allowing applications to ask for higher permissions
   security.polkit.enable = true;

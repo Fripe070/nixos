@@ -22,7 +22,7 @@ hl.config({
 
     input = {
         -- Scrolling for people who aren't freaks
-        touchpad = { natural_scroll = true },
+        touchpad = { natural_scroll = true, disable_while_typing = false },
     },
 
     xwayland = {
