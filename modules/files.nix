@@ -22,15 +22,15 @@
         "inode/directory" = [ "org.kde.dolphin.desktop" ];
 
         # Web browser & URLs
-        "text/html" = [ "firefox.desktop" ];
-        "x-scheme-handler/http" = [ "firefox.desktop" ];
-        "x-scheme-handler/https" = [ "firefox.desktop" ];
-        "x-scheme-handler/about" = [ "firefox.desktop" ];
-        "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+        "text/html" = [ "firefox-nightly.desktop" ];
+        "x-scheme-handler/http" = [ "firefox-nightly.desktop" ];
+        "x-scheme-handler/https" = [ "firefox-nightly.desktop" ];
+        "x-scheme-handler/about" = [ "firefox-nightly.desktop" ];
+        "x-scheme-handler/unknown" = [ "firefox-nightly.desktop" ];
 
         # Documents & PDF
-        "application/pdf" = [ "firefox.desktop" ];
-        "application/x-pdf" = [ "firefox.desktop" ];
+        "application/pdf" = [ "firefox-nightly.desktop" ];
+        "application/x-pdf" = [ "firefox-nightly.desktop" ];
 
         # Text & Code
         "text/plain" = [ "code.desktop" ];

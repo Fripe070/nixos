@@ -9,8 +9,8 @@
     imports = [ inputs.nixvim.homeModules.default ];
 
     home.packages = with pkgs; [
-      firefox
       vscodium-fhs
+      claude-code
 
       kdePackages.dolphin # file manager
       kdePackages.ark # archive manager

@@ -22,6 +22,7 @@
     "audio.nix"
     "desktop"
     "programs.nix"
+    "firefox.nix"
     "shell.nix"
     "files.nix"
     "develop.nix"
