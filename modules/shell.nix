@@ -45,6 +45,20 @@
         interactiveShellInit = ''
           set fish_greeting
         '';
+        functions.gitcd = {
+          description = "git clone and cd into the directory";
+          body = ''
+            set -l log (mktemp)
+	    # Show output but keep a copy to find the dir
+            git clone --progress $argv 2>| tee $log >&2
+            set -l code $pipestatus[1]
+            set -l dir (string match -rg "Cloning into (?:bare repository )?'(.+)'" < $log)
+            rm $log
+
+            test $code -eq 0; and test -n "$dir"; and cd $dir
+            return $code
+          '';
+        };
         shellAliases = {
           ls = "eza -h --icons=auto --group-directories-first";
           ll = "eza -hal --icons=auto --group-directories-first";
