@@ -23,6 +23,29 @@
   '';
 
   home-manager.users.${identity.username} = { pkgs, ... }: {
+    home.packages = with pkgs; [
+      gcc
+      (lib.setPrio 11 clang) # gcc is default cc
+      clang-tools # clangd, clang-format, clang-tidy
+      gnumake
+      rustc
+      cargo
+      clippy
+      rustfmt
+      rust-analyzer
+      python3
+      uv
+      nodejs
+      go
+      nil
+      nixfmt
+    ];
+    # Make uv use nix python instead of downloading its own
+    home.sessionVariables = {
+      UV_PYTHON_DOWNLOADS = "never";
+      UV_PYTHON_PREFERENCE = "only-system";
+    };
+
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
