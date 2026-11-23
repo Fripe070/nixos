@@ -26,8 +26,8 @@ bind("SUPER + N",             exec("swaync-client --toggle-panel"),        "Noti
 bind("SUPER + L",             exec("loginctl lock-session"),               "Lock the screen")
 
 bind("SUPER + RETURN",        exec("uwsm app -- kitty"),                   "Terminal")
-bind("SUPER + B",             exec("uwsm app -- firefox"),                 "Browser")
-bind("SUPER + SHIFT + B",     exec("uwsm app -- firefox --private-window"), "Private browser")
+bind("SUPER + B",             exec("uwsm app -- firefox-devedition"),                 "Browser")
+bind("SUPER + SHIFT + B",     exec("uwsm app -- firefox-devedition --private-window"), "Private browser")
 
 bind("SUPER + SHIFT + C",     exec("hyprpicker -a"),                       "Pick color")
 
@@ -151,3 +151,19 @@ bind("SUPER + CTRL + S", function()
         notify("Scratchpad", "Window stashed in scratchpad", 1000)
     end
 end, "Move window in/out of special workspace")
+
+-- Multiple monitors
+for key, dir in pairs({ left = "l", right = "r", up = "u", down = "d" }) do
+    bind("SUPER + CTRL + " .. key,         hl.dsp.window.move({ monitor = dir }), "Move window to monitor " .. key)
+    bind("SUPER + CTRL + SHIFT + " .. key, hl.dsp.focus({ monitor = dir }),       "Focus monitor " .. key)
+end
+
+-- Toggle mirroring of every external display onto the laptop screen
+bind("SUPER + P", exec([[sh -c '
+  if hyprctl monitors -j | jq -e ".[] | select(.mirrorOf != \"none\")" >/dev/null; then
+    hyprctl reload
+  else
+    for m in $(hyprctl monitors -j | jq -r ".[] | select(.name != \"eDP-1\") | .name"); do
+      hyprctl keyword monitor "$m,preferred,auto,1,mirror,eDP-1"
+    done
+  fi']]), "Toggle display mirroring")
