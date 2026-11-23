@@ -3,7 +3,16 @@
   home-manager.users.${identity.username} = { ... }: {
     programs.firefox = {
       enable = true;
-      package = pkgs.firefox-devedition;
+      configPath = ".mozilla/firefox"; # keep using the existing profile location
+      # No policy/pref exists for the new tab URL, so override it via autoconfig
+      package = pkgs.firefox-devedition.override {
+        extraPrefs = ''
+          try {
+            const { AboutNewTab } = ChromeUtils.importESModule("resource:///modules/AboutNewTab.sys.mjs");
+            AboutNewTab.newTabURL = "https://newtab.fripe.dev/";
+          } catch (e) {}
+        '';
+      };
 
       policies = {
         DisableTelemetry = true;
@@ -33,6 +42,7 @@
 
       profiles.default = {
         isDefault = true;
+        name = "dev-edition-default"; # Dev Edition only picks the profile with this name
         # Adopt the existing profile so history, cookies, containers etc. are kept
         path = "v0lh8n2j.default";
 
