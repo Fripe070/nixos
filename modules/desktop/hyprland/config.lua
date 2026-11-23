@@ -43,3 +43,11 @@ hl.window_rule({
 
     suppress_event = "maximize",
 })
+
+-- Fallback for any other display (projector, external monitor): extend to the right
+hl.monitor({
+    output   = "",
+    mode     = "preferred",
+    position = "auto",
+    scale    = 1,
+})
